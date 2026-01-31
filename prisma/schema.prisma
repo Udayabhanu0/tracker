@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Expense {
+  id             String   @id @default(uuid())
+  amount         Int      // Stored in smallest currency unit (e.g., paise for INR)
+  currency       String   @default("INR")
+  category       String
+  description    String?
+  date           DateTime
+  createdAt      DateTime @default(now())
+  idempotencyKey String   @unique
+}
