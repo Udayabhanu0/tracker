@@ -13,12 +13,12 @@ export async function GET(request: Request) {
   const category = searchParams.get("category");
 
   const expenses = category && category !== "all" 
-    ? getExpensesByCategory(category) 
-    : getAllExpenses();
+    ? await getExpensesByCategory(category) 
+    : await getAllExpenses();
   
-  const total = getGrandTotal();
-  const categoryTotals = getTotalByCategory();
-  const categories = getCategories();
+  const total = await getGrandTotal();
+  const categoryTotals = await getTotalByCategory();
+  const categories = await getCategories();
 
   return NextResponse.json({
     expenses,
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const expense = createExpense({
+    const expense = await createExpense({
       description,
       amount: Number(amount),
       category,

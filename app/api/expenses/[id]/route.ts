@@ -7,7 +7,7 @@ export async function DELETE(
 ) {
   const { id } = await params;
   
-  const success = deleteExpense(id);
+  const success = await deleteExpense(id);
   
   if (!success) {
     return NextResponse.json(
